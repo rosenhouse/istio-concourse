@@ -30,5 +30,4 @@ run:
     pushd ./go/src/$GOPACKAGE
       dep ensure -v
     popd
-    cp -a ./go/src/$GOPACKAGE/ ./post-ensure
-    ls -la ./post-ensure
+    cp -a ./go/src/$GOPACKAGE/* ./post-ensure/
