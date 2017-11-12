@@ -88,5 +88,9 @@ jobs:
         - |
           set -euxo pipefail
           export GOPATH=$PWD/go
+          pwd
+          ls -la
           cd go/src/istio.io/istio
+          pwd
+          ls -la
           go test ./pilot/model/...

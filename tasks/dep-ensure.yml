@@ -31,3 +31,4 @@ run:
       dep ensure -v
     popd
     cp -a ./go/src/$GOPACKAGE/ ./post-ensure
+    ls -la ./post-ensure
