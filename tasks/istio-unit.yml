@@ -16,4 +16,4 @@ inputs:
 
 run:
   user: root
-  path: istio-ci/tasks/istio-unit.sh
+  path: istio-concourse/tasks/istio-unit.sh
