@@ -50,7 +50,6 @@ jobs:
 - name: istio-unit
   plan:
   - get: istio-concourse
-    trigger: true
   - get: istio
     trigger: true
   - task: dep-ensure
