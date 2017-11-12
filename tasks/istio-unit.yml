@@ -1,0 +1,19 @@
+# Concourse Task to run unit tests on https://github.com/istio/istio
+# based on the .circleci/config.yml file from the same repo
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: istio/ci
+    tag: go1.9-k8s1.7.4
+
+inputs:
+- name: istio-concourse
+- name: istio-with-deps
+  path: go/src/istio.io/istio
+
+run:
+  user: root
+  path: istio-ci/tasks/istio-unit.sh

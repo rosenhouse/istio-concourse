@@ -5,8 +5,7 @@ groups:
   - istio-release-test
 - name: istio
   jobs:
-  - upstream-istio
-  - cache-test
+  - istio-unit
 
 resources:
 - name: copilot
@@ -48,16 +47,7 @@ jobs:
   - task: test
     file: istio-release/ci/istio-tests.yml
 
-- name: upstream-istio
-  plan:
-  - get: istio
-    trigger: true
-  - get: istio-release
-    trigger: true
-  - task: unit-test
-    file: istio-release/ci/upstream-unit.yml
-
-- name: cache-test
+- name: istio-unit
   plan:
   - get: istio-concourse
     trigger: true
@@ -70,27 +60,4 @@ jobs:
     params:
       GOPACKAGE: istio.io/istio
   - task: unit-test
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: istio/ci
-          tag: go1.9-k8s1.7.4
-      inputs:
-      - name: istio-with-deps
-        path: go/src/istio.io/istio
-      run:
-        path: /bin/bash
-        user: root
-        args:
-        - -c
-        - |
-          set -euxo pipefail
-          export GOPATH=$PWD/go
-          pwd
-          ls -la
-          cd go/src/istio.io/istio
-          pwd
-          ls -la
-          go test ./pilot/model/...
+    file: istio-concourse/tasks/istio-unit.yml
