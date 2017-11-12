@@ -13,7 +13,9 @@ inputs:
 
 outputs:
 - name: post-ensure
-  path: go/src/istio.io/istio
+
+params:
+  GOPACKAGE=istio.io/istio
 
 run:
   path: /bin/bash
@@ -22,7 +24,10 @@ run:
   - -c
   - |
     set -euxo pipefail
-    git clone ./pre-ensure go/src/istio.io/istio
     export GOPATH=$PWD/go
-    cd go/src/istio.io/istio
-    dep ensure -v
+    mkdir -p ./go/src/$GOPACKAGE
+    git clone ./pre-ensure ./go/src/$GOPACKAGE
+    pushd ./go/src/$GOPACKAGE
+      dep ensure -v
+    popd
+    cp -a ./go/src/$GOPACKAGE/ ./post-ensure
