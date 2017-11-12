@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+
+target=${TARGET:-routing}
+fly -t $target set-pipeline -p istio -c pipeline.yml
