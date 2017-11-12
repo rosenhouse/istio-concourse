@@ -15,7 +15,7 @@ outputs:
 - name: post-ensure
 
 params:
-  GOPACKAGE=istio.io/istio
+  GOPACKAGE: istio.io/istio
 
 run:
   path: /bin/bash

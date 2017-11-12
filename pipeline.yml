@@ -59,10 +59,34 @@ jobs:
 
 - name: cache-test
   plan:
-  - get: istio
-    trigger: true
   - get: istio-concourse
+    trigger: true
+  - get: istio
     trigger: true
   - task: dep-ensure
     file: istio-concourse/tasks/dep-ensure.yml
     input_mapping: {pre-ensure: istio}
+    output_mapping: {post-ensure: istio-with-deps}
+    params:
+      GOPACKAGE: istio.io/istio
+  - task: unit-test
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: istio/ci
+          tag: go1.9-k8s1.7.4
+      inputs:
+      - name: istio-with-deps
+        path: go/src/istio.io/istio
+      run:
+        path: /bin/bash
+        user: root
+        args:
+        - -c
+        - |
+          set -euxo pipefail
+          export GOPATH=$PWD/go
+          cd go/src/istio.io/istio
+          go test ./pilot/model/...
