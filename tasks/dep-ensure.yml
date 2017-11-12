@@ -22,7 +22,7 @@ run:
   - -c
   - |
     set -euxo pipefail
-
     git clone ./pre-ensure go/src/istio.io/istio
+    export GOPATH=$PWD/go
     cd go/src/istio.io/istio
     dep ensure -v
