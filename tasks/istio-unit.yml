@@ -15,7 +15,7 @@ inputs:
   path: go/src/istio.io/istio
 
 caches:
-- path: go/pkg/depcache
+- path: go/pkg/dep
 
 run:
   user: root
