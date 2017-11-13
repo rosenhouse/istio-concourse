@@ -1,25 +1,4 @@
-groups:
-- name: cf-integration
-  jobs:
-  - copilot-test
-  - istio-release-test
-- name: istio
-  jobs:
-  - istio-unit
-
 resources:
-- name: copilot
-  type: git
-  source:
-    branch: master
-    uri: https://github.com/cloudfoundry-incubator/copilot
-
-- name: istio-release
-  type: git
-  source:
-    branch: master
-    uri: https://github.com/cloudfoundry-incubator/istio-release
-
 - name: istio
   type: git
   source:
@@ -33,20 +12,6 @@ resources:
     uri: https://github.com/rosenhouse/istio-concourse
 
 jobs:
-- name: copilot-test
-  plan:
-  - get: copilot
-    trigger: true
-  - task: test
-    file: copilot/ci/test.yml
-
-- name: istio-release-test
-  plan:
-  - get: istio-release
-    trigger: true
-  - task: test
-    file: istio-release/ci/istio-tests.yml
-
 - name: istio-unit
   plan:
   - get: istio-concourse
