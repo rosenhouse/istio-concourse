@@ -19,13 +19,15 @@ popd
 cd $GOPATH/src/istio.io/istio
 ln -sf $envoy_bin $PWD/pilot/proxy/envoy/envoy
 
-/tmp/apiserver/start-test-server.sh > /dev/null 2>&1 &
-sleep 5 # for server to start
-
 ln -s $PWD/.circleci/config $PWD/pilot/platform/kube/config
 ln -s $PWD/.circleci/config $PWD/pilot/platform/kube/inject/config
 ln -s $PWD/.circleci/config $PWD/pilot/platform/kube/admit/config
 ln -s $PWD/.circleci/config $PWD/broker/pkg/platform/kube/config
+
+dep ensure
+
+/tmp/apiserver/start-test-server.sh > /dev/null 2>&1 &
+sleep 5 # for server to start
 
 go test ./pilot/...
 go test ./security/...

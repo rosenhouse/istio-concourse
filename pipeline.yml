@@ -17,11 +17,5 @@ jobs:
   - get: istio-concourse
   - get: istio
     trigger: true
-  - task: dep-ensure
-    file: istio-concourse/tasks/dep-ensure.yml
-    input_mapping: {pre-ensure: istio}
-    output_mapping: {post-ensure: istio-with-deps}
-    params:
-      GOPACKAGE: istio.io/istio
   - task: unit-test
     file: istio-concourse/tasks/istio-unit.yml
