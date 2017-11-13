@@ -11,7 +11,7 @@ image_resource:
 
 inputs:
 - name: istio-concourse
-- name: istio-with-deps
+- name: istio
   path: go/src/istio.io/istio
 
 run:
