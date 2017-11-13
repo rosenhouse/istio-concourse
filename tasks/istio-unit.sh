@@ -24,7 +24,7 @@ ln -s $PWD/.circleci/config $PWD/pilot/platform/kube/inject/config
 ln -s $PWD/.circleci/config $PWD/pilot/platform/kube/admit/config
 ln -s $PWD/.circleci/config $PWD/broker/pkg/platform/kube/config
 
-dep ensure
+time dep ensure
 
 /tmp/apiserver/start-test-server.sh > /dev/null 2>&1 &
 sleep 5 # for server to start
